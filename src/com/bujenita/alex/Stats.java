@@ -19,13 +19,13 @@ public class Stats {
         this.wordCounts.merge(word, 1, Integer::sum);
     }
 
-    public void printOccurences() {
+    public void printOccurrences() {
         // TEST
         Map<String, Integer> topTen = this.wordCounts
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .limit(10)
+                .limit(20)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
         //

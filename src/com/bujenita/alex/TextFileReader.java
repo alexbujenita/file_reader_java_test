@@ -27,7 +27,7 @@ public class TextFileReader {
                     this.stats.mapWordToCount(word);
                 }
             }
-            this.stats.printOccurences();
+            this.stats.printOccurrences();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
