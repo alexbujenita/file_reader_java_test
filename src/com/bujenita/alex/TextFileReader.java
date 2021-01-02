@@ -11,9 +11,9 @@ public class TextFileReader {
     private final String fileName;
     private final Stats stats;
 
-    public TextFileReader(String fileName) {
+    public TextFileReader(String fileName, Stats stats) {
         this.fileName = fileName;
-        this.stats = new Stats();
+        this.stats = stats;
     }
 
     public void readTest() {
@@ -27,7 +27,6 @@ public class TextFileReader {
                     this.stats.mapWordToCount(word);
                 }
             }
-            this.stats.printOccurrences();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

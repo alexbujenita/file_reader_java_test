@@ -2,6 +2,7 @@ package com.bujenita.alex;
 
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -24,9 +25,10 @@ public class Stats {
         Map<String, Integer> topTen = this.wordCounts
                 .entrySet()
                 .stream()
+                .filter(w -> true) // will use for specific word/s
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(20)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
         //
         for (String word: topTen.keySet()) {
