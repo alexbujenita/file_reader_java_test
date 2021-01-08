@@ -8,10 +8,12 @@ import java.util.stream.Collectors;
 
 public class Stats {
     private final Map<String, Integer> wordCounts;
+    private final Option option;
     private int numberOfWords;
 
-    public Stats() {
+    public Stats(Option option) {
         this.wordCounts = new HashMap<>();
+        this.option = option;
         this.numberOfWords = 0;
     }
 
@@ -21,22 +23,21 @@ public class Stats {
     }
 
     public void printOccurrences() {
+        boolean hasFilters = option.hasFilters();
         // TEST
         Map<String, Integer> topTen = this.wordCounts
                 .entrySet()
                 .stream()
-                .filter(w -> true) // will use for specific word/s
+                .filter(w -> !hasFilters || option.hasWord(w.getKey()))
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .limit(20)
+                .limit(20L)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
         //
-        for (String word: topTen.keySet()) {
-            System.out.println("Word " + " | " + word  + " | " + " occurred " + wordCounts.get(word) + " times");
+        for (String word : topTen.keySet()) {
+            System.out.println("Word " + " | " + "\u001B[31m" + word + "\u001B[0m" + " | " + " occurred " + wordCounts.get(word) + " times");
         }
-//        for (String word: this.wordCounts.keySet()) {
-//            System.out.println("Word " + " | " + word  + " | " + " occurred " + wordCounts.get(word) + " times");
-//        }
+
         System.out.println("Total words: " + this.numberOfWords);
     }
 }

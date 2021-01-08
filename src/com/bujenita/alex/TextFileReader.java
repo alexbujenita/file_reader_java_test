@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 public class TextFileReader {
 
@@ -17,13 +18,14 @@ public class TextFileReader {
     }
 
     public void readTest() {
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(this.fileName));) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(this.fileName))) {
             String line;
+            Pattern pattern = Pattern.compile("[^a-zA-Z]"); // @TODO if needed
             while ((line = reader.readLine()) != null) {
                 String[] words = line.split(" ");
                 for (String word : words) {
-                    word = word.replaceAll("[^a-zA-Z]", "").toLowerCase(Locale.ROOT);
-                    if(word.isBlank()) continue;
+                    word = pattern.matcher(word).replaceAll("").toLowerCase(Locale.ROOT);
+                    if (word.isBlank()) continue;
                     this.stats.mapWordToCount(word);
                 }
             }
