@@ -8,7 +8,6 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class TextFileReader {
-
     private final String fileName;
     private final Stats stats;
 
@@ -20,7 +19,7 @@ public class TextFileReader {
     public void readTest() {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(this.fileName))) {
             String line;
-            Pattern pattern = Pattern.compile("[^a-zA-Z]"); // @TODO if needed
+            Pattern pattern = Pattern.compile("[^a-zA-Z]");
             while ((line = reader.readLine()) != null) {
                 String[] words = line.split(" ");
                 for (String word : words) {

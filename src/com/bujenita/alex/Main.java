@@ -9,11 +9,8 @@ public class Main {
 
         Option option = new Option();
 
-
-        if (args.length > 1) {
-            for (int i = 1; i < args.length; i++) {
-                option.addWords(args[i]);
-            }
+        for (int i = 1; i < args.length; i++) {
+            option.addWord(args[i]);
         }
 
         Stats stats = new Stats(option);

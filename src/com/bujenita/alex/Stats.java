@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Stats {
     private final Map<String, Integer> wordCounts;
@@ -24,11 +25,12 @@ public class Stats {
 
     public void printOccurrences() {
         boolean hasFilters = option.hasFilters();
-        // TEST
-        Map<String, Integer> topTen = this.wordCounts
-                .entrySet()
-                .stream()
-                .filter(w -> !hasFilters || option.hasWord(w.getKey()))
+//        var stream = this.wordCounts.entrySet().stream(); same as below
+        Stream<Map.Entry<String, Integer>> stream = this.wordCounts.entrySet().stream();
+        if (hasFilters) {
+            stream = stream.filter(w -> option.hasWord(w.getKey()));
+        }
+        Map<String, Integer> topTen = stream
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(20L)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));

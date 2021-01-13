@@ -1,16 +1,17 @@
 package com.bujenita.alex;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 public class Option {
-    private final ArrayList<String> words;
+    private final Set<String> words;
 
     public Option() {
-        this.words = new ArrayList<>();
+        this.words = new HashSet<>();
     }
 
-    public void addWords(String word) {
+    public void addWord(String word) {
         this.words.add(word.toLowerCase(Locale.ROOT));
     }
 
