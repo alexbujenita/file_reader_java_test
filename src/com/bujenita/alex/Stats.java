@@ -30,9 +30,10 @@ public class Stats {
         if (hasFilters) {
             stream = stream.filter(w -> option.hasWord(w.getKey()));
         }
+
         Map<String, Integer> topTen = stream
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .limit(20L)
+                .limit(hasFilters ? 100_000L : 20L)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
         //
